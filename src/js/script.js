@@ -8,10 +8,13 @@
     containerOf: {
       bookList: '.books-list',
     },
+    filters: '.filters',
   };
+
   const className = {
-    bookImage: 'favorite'
+    bookImageClass: 'favorite'
   };
+
   const templates = {
     menuProduct: Handlebars.compile(
       document.querySelector(select.templateOf.bookProduct).innerHTML
@@ -43,14 +46,12 @@
     thisBook.container.addEventListener('dblclick', function(event){
       event.preventDefault();
         
-      if(event.target.offsetParent.classList.contains('.book__image')){
+      if(event.target.offsetParent.classList.contains('book__image')){       
        
-        for(let bookImage of thisBook.bookImages){
-          
-          bookImage.classList.toggle(className.bookImage);
+         event.target.offsetParent.classList.toggle(className.bookImageClass);
 
-          const bookImageId = bookImage.getAttribute('data-id');
-          
+          const bookImageId = event.target.offsetParent.getAttribute('data-id');
+
           if(favoriteBooks.includes(bookImageId)){
             const list = favoriteBooks;
             const idIndex = list.indexOf(bookImageId);
@@ -60,8 +61,7 @@
             favoriteBooks.push(bookImageId);
           }
 
-          console.log('fav:', favoriteBooks);
-        }
+          console.log('fav:', favoriteBooks); 
       }
     });
   };
