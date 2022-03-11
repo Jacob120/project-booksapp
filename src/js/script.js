@@ -38,21 +38,20 @@
     const thisBook = this;
 
     thisBook.container = document.querySelector(select.containerOf.bookList);
-    thisBook.bookImages = thisBook.container.querySelectorAll('.book a')
-    // thisBook.images = thisBook.book.querySelectorAll('.book_image');
+    thisBook.bookImages = thisBook.container.querySelectorAll('.book a');    
+    console.log('e.tar:', thisBook.container);
 
-    console.log('elem:', thisBook.container);
-    console.log('book:', thisBook.bookImages);
-    // console.log('images:', thisBook.images);
-
-    for(let bookImage of thisBook.bookImages){
+    // for(let bookImage of thisBook.bookImages){
       
-      bookImage.addEventListener('dblclick', function(event){
+      thisBook.container.addEventListener('dblclick', function(event){
         event.preventDefault();
 
-        bookImage.classList.toggle(className.bookImage);
+        if(event.target.offsetParent.classList.contains('.book__image'))
+       
 
-        const bookImageId = bookImage.getAttribute('data-id');
+        event.target.classList.toggle(className.bookImage);
+
+        const bookImageId = event.target.getAttribute('data-id');
         if(favoriteBooks.includes(bookImageId)){
           const list = favoriteBooks;
           const idIndex = list.indexOf(bookImageId);
@@ -60,11 +59,11 @@
         }
         else {
           favoriteBooks.push(bookImageId);
-        };
+        }
 
         console.log('fav:', favoriteBooks);
-      })
-    }
+      });
+    // }
   };
   
   render();
