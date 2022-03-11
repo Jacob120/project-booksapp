@@ -38,32 +38,32 @@
     const thisBook = this;
 
     thisBook.container = document.querySelector(select.containerOf.bookList);
-    thisBook.bookImages = thisBook.container.querySelectorAll('.book a');    
-    console.log('e.tar:', thisBook.container);
-
-    // for(let bookImage of thisBook.bookImages){
+    thisBook.bookImages = thisBook.container.querySelectorAll('.book a');        
       
-      thisBook.container.addEventListener('dblclick', function(event){
-        event.preventDefault();
-
-        if(event.target.offsetParent.classList.contains('.book__image'))
+    thisBook.container.addEventListener('dblclick', function(event){
+      event.preventDefault();
+        
+      if(event.target.offsetParent.classList.contains('.book__image')){
        
+        for(let bookImage of thisBook.bookImages){
+          
+          bookImage.classList.toggle(className.bookImage);
 
-        event.target.classList.toggle(className.bookImage);
+          const bookImageId = bookImage.getAttribute('data-id');
+          
+          if(favoriteBooks.includes(bookImageId)){
+            const list = favoriteBooks;
+            const idIndex = list.indexOf(bookImageId);
+            list.splice(idIndex, 1);
+          }
+          else {
+            favoriteBooks.push(bookImageId);
+          }
 
-        const bookImageId = event.target.getAttribute('data-id');
-        if(favoriteBooks.includes(bookImageId)){
-          const list = favoriteBooks;
-          const idIndex = list.indexOf(bookImageId);
-          list.splice(idIndex, 1);
+          console.log('fav:', favoriteBooks);
         }
-        else {
-          favoriteBooks.push(bookImageId);
-        }
-
-        console.log('fav:', favoriteBooks);
-      });
-    // }
+      }
+    });
   };
   
   render();
