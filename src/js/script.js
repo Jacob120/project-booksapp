@@ -36,21 +36,26 @@
   };
 
   const favoriteBooks = [];
+  // const filters = [];
 
   const initActions = function () {
     const thisBook = this;
 
+    
     thisBook.container = document.querySelector(select.containerOf.bookList);
-    thisBook.bookImages = thisBook.container.querySelectorAll('.book a');        
+    thisBook.bookImages = thisBook.container.querySelectorAll('.book a');
+    thisBook.filter = document.querySelector(select.filters);
+            
       
     thisBook.container.addEventListener('dblclick', function(event){
       event.preventDefault();
-        
-      if(event.target.offsetParent.classList.contains('book__image')){       
-       
-         event.target.offsetParent.classList.toggle(className.bookImageClass);
+      const book = event.target.offsetParent;
 
-          const bookImageId = event.target.offsetParent.getAttribute('data-id');
+      if(book.classList.contains('book__image')){       
+       
+         book.classList.toggle(className.bookImageClass);
+
+          const bookImageId = book.getAttribute('data-id');
 
           if(favoriteBooks.includes(bookImageId)){
             const list = favoriteBooks;
@@ -59,13 +64,18 @@
           }
           else {
             favoriteBooks.push(bookImageId);
-          }
-
-          console.log('fav:', favoriteBooks); 
+          }         
       }
     });
-  };
-  
+
+    thisBook.filter.addEventListener('click', function(event){      
+
+      if(book.tagName == 'INPUT' && book.type == 'checkbox' && book.name == 'filter'){
+      console.log('filter:', thisBook.filter.value);
+      // return thisBook.filter.value;
+      }
+    });
+  };  
   render();
   initActions();
 } 
