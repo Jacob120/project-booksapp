@@ -36,7 +36,7 @@
   };
 
   const favoriteBooks = [];
-  // const filters = [];
+  const filters = [];
 
   const initActions = function () {
     const thisBook = this;
@@ -68,12 +68,17 @@
       }
     });
 
-    thisBook.filter.addEventListener('click', function(event){      
-
-      if(book.tagName == 'INPUT' && book.type == 'checkbox' && book.name == 'filter'){
-      console.log('filter:', thisBook.filter.value);
-      // return thisBook.filter.value;
-      }
+    thisBook.filter.addEventListener('click', function(event){ 
+      const bookFilter = event.target;    
+     
+      if(bookFilter.tagName == 'INPUT' && bookFilter.type == 'checkbox' && bookFilter.name == 'filter'){
+        // if(bookFilter.input.checked == true){
+        //   filters.push(bookFilter.value)
+        // }
+        console.log('input', bookFilter.input)
+        console.log('filter:', bookFilter.value);
+        console.log('filterArr:', filters)        
+      }         
     });
   };  
   render();
